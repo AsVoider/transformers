@@ -19,6 +19,7 @@ from . import (
     audio_spectrogram_transformer,
     auto,
     autoformer,
+    bamboo,
     bark,
     bart,
     barthez,
