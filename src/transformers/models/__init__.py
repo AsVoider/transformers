@@ -243,6 +243,7 @@ from . import (
     unispeech_sat,
     univnet,
     upernet,
+    video_llava,
     videomae,
     vilt,
     vipllava,
