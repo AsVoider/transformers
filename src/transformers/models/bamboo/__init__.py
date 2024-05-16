@@ -28,7 +28,7 @@ from ...utils import (
 
 
 _import_structure = {
-    "configuration_bamboo": ["BAMBOO_PRETRAINED_CONFIG_ARCHIVE_MAP", "BambooConfig"]
+    "configuration_bamboo": ["BambooConfig"]
 }
 
 
@@ -47,7 +47,7 @@ else:
 
 
 if TYPE_CHECKING:
-    from .configuration_bamboo import BAMBOO_PRETRAINED_CONFIG_ARCHIVE_MAP, BambooConfig
+    from .configuration_bamboo import BambooConfig
 
     try:
         if not is_torch_available():

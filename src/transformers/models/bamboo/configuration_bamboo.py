@@ -22,9 +22,9 @@ from transformers.utils import logging
 
 logger = logging.get_logger(__name__)
 
-BAMBOO_PRETRAINED_CONFIG_ARCHIVE_MAP = {
-    "huggingface/PowerInfer/Bamboo-base-v0_1": "https://huggingface.co/PowerInfer/Bamboo-base-v0_1/blob/main/config.json",
-}
+# BAMBOO_PRETRAINED_CONFIG_ARCHIVE_MAP = {
+#     "PowerInfer/Bamboo-base-v0_1": "https://huggingface.co/PowerInfer/Bamboo-base-v0_1/blob/main/config.json",
+# }
 
 
 class BambooConfig(PretrainedConfig):

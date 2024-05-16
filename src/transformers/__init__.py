@@ -182,7 +182,6 @@ _import_structure = {
     ],
     "models.autoformer": ["AutoformerConfig"],
     "models.bamboo": [
-        "BAMBOO_PRETRAINED_CONFIG_ARCHIVE_MAP",
         "BambooConfig",
     ],
     "models.bark": [
@@ -4717,7 +4716,6 @@ if TYPE_CHECKING:
         AutoformerConfig,
     )
     from .models.bamboo import (
-        BAMBOO_PRETRAINED_CONFIG_ARCHIVE_MAP,
         BambooConfig
     )
     from .models.bark import (

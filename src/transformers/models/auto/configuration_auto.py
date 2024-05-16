@@ -297,6 +297,7 @@ MODEL_NAMES_MAPPING = OrderedDict(
         ("altclip", "AltCLIP"),
         ("audio-spectrogram-transformer", "Audio Spectrogram Transformer"),
         ("autoformer", "Autoformer"),
+        ("bamboo", "Bamboo"),
         ("bark", "Bark"),
         ("bart", "BART"),
         ("barthez", "BARThez"),
