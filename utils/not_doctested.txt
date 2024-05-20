@@ -51,6 +51,7 @@ docs/source/en/model_doc/altclip.md
 docs/source/en/model_doc/audio-spectrogram-transformer.md
 docs/source/en/model_doc/auto.md
 docs/source/en/model_doc/autoformer.md
+docs/source/en/model_doc/bamboo.md //todo
 docs/source/en/model_doc/bark.md
 docs/source/en/model_doc/bart.md
 docs/source/en/model_doc/barthez.md
@@ -415,6 +416,8 @@ src/transformers/models/auto/modeling_flax_auto.py
 src/transformers/models/auto/modeling_tf_auto.py
 src/transformers/models/autoformer/configuration_autoformer.py
 src/transformers/models/autoformer/modeling_autoformer.py
+src/transformers/models/bamboo/configuration_bamboo.py
+src/transformers/models/bamboo/modeling_bamboo.py
 src/transformers/models/bark/convert_suno_to_hf.py
 src/transformers/models/bart/convert_bart_original_pytorch_checkpoint_to_pytorch.py
 src/transformers/models/bart/modeling_flax_bart.py
