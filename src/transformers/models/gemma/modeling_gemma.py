@@ -16,7 +16,6 @@
 """ PyTorch Gemma model."""
 
 import math
-import warnings
 from typing import List, Optional, Tuple, Union
 
 import torch
@@ -104,15 +103,14 @@ class GemmaRotaryEmbedding(nn.Module):
         self.dim = dim
         self.max_position_embeddings = max_position_embeddings
         self.base = base
-        self.register_buffer("inv_freq", None, persistent=False)
+
+        inv_freq = 1.0 / (self.base ** (torch.arange(0, self.dim, 2, dtype=torch.int64).float() / self.dim))
+        self.register_buffer("inv_freq", tensor=inv_freq, persistent=False)
 
     @torch.no_grad()
     def forward(self, x, position_ids, seq_len=None):
         # x: [bs, num_attention_heads, seq_len, head_size]
-        if self.inv_freq is None:
-            self.inv_freq = 1.0 / (
-                self.base ** (torch.arange(0, self.dim, 2, dtype=torch.int64, device=x.device).float() / self.dim)
-            )
+        self.inv_freq.to(x.device)
         inv_freq_expanded = self.inv_freq[None, :, None].float().expand(position_ids.shape[0], -1, 1)
         position_ids_expanded = position_ids[:, None, :].float()
         # Force float32 since bfloat16 loses precision on long contexts
@@ -617,7 +615,6 @@ class GemmaDecoderLayer(nn.Module):
         output_attentions: Optional[bool] = False,
         use_cache: Optional[bool] = False,
         cache_position: Optional[torch.LongTensor] = None,
-        **kwargs,
     ) -> Tuple[torch.FloatTensor, Optional[Tuple[torch.FloatTensor, torch.FloatTensor]]]:
         """
         Args:
@@ -633,11 +630,6 @@ class GemmaDecoderLayer(nn.Module):
                 (see `past_key_values`).
             past_key_value (`Tuple(torch.FloatTensor)`, *optional*): cached past key and value projection states
         """
-        if "padding_mask" in kwargs:
-            warnings.warn(
-                "Passing `padding_mask` is deprecated and will be removed in v4.37. Please make sure use `attention_mask` instead.`"
-            )
-
         residual = hidden_states
 
         hidden_states = self.input_layernorm(hidden_states)
@@ -651,7 +643,6 @@ class GemmaDecoderLayer(nn.Module):
             output_attentions=output_attentions,
             use_cache=use_cache,
             cache_position=cache_position,
-            **kwargs,
         )
         hidden_states = residual + hidden_states
 
@@ -703,6 +694,7 @@ class GemmaPreTrainedModel(PreTrainedModel):
     _supports_flash_attn_2 = True
     _supports_sdpa = True
     _supports_cache_class = True
+    _supports_static_cache = True
 
     def _init_weights(self, module):
         std = self.config.initializer_range
