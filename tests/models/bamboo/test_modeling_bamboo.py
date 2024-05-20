@@ -311,13 +311,11 @@ class BambooModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTesterMix
     test_pruning = False
     fx_compatible = True
 
-    # TODO (ydshieh): Check this. See https://app.circleci.com/pipelines/github/huggingface/transformers/79245/workflows/9490ef58-79c2-410d-8f51-e3495156cf9c/jobs/1012146
     def is_pipeline_test_to_skip(
         self, pipeline_test_casse_name, config_class, model_architecture, tokenizer_name, processor_name
     ):
         return True
 
-    # TODO: @Fxmarty
     @is_flaky(max_attempts=3, description="flaky on some models.")
     @require_torch_sdpa
     @slow
