@@ -18,8 +18,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" Testing suite for the PyTorch Bamboo model. """
-
+"""Testing suite for the PyTorch Bamboo model."""
 
 import gc
 import tempfile
@@ -151,7 +150,7 @@ class BambooModelTester:
             pad_token_id=self.pad_token_id,
         )
 
-    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_model with Llama->Mistral // todo 
+    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_model with Llama->Bamboo
     def create_and_check_model(
         self, config, input_ids, token_type_ids, input_mask, sequence_labels, token_labels, choice_labels
     ):
@@ -162,7 +161,7 @@ class BambooModelTester:
         result = model(input_ids)
         self.parent.assertEqual(result.last_hidden_state.shape, (self.batch_size, self.seq_length, self.hidden_size))
 
-    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_model_as_decoder with Llama->Mistral // todo 
+    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_model_as_decoder with Llama->Bamboo
     def create_and_check_model_as_decoder(
         self,
         config,
@@ -193,7 +192,7 @@ class BambooModelTester:
         result = model(input_ids, attention_mask=input_mask)
         self.parent.assertEqual(result.last_hidden_state.shape, (self.batch_size, self.seq_length, self.hidden_size))
 
-    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_for_causal_lm with Llama->Mistral // todo
+    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_for_causal_lm with Llama->Bamboo
     def create_and_check_for_causal_lm(
         self,
         config,
@@ -212,7 +211,7 @@ class BambooModelTester:
         result = model(input_ids, attention_mask=input_mask, labels=token_labels)
         self.parent.assertEqual(result.logits.shape, (self.batch_size, self.seq_length, self.vocab_size))
 
-    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_decoder_model_past_large_inputs with Llama->Mistral // todo
+    # Copied from tests.models.llama.test_modeling_llama.LlamaModelTester.create_and_check_decoder_model_past_large_inputs with Llama->Bamboo
     def create_and_check_decoder_model_past_large_inputs(
         self,
         config,
@@ -448,7 +447,7 @@ class BambooModelTest(ModelTesterMixin, GenerationTesterMixin, PipelineTesterMix
                 model.save_pretrained(tmpdirname)
 
                 dummy_attention_mask = inputs_dict.get("attention_mask", torch.ones_like(dummy_input))
-                # NOTE: Mistral apparently does not support right padding + use_cache with FA2.  // todo
+
                 dummy_attention_mask[:, -1] = 1
 
                 model = model_class.from_pretrained(

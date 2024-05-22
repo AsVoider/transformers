@@ -12,19 +12,14 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" This model config is from Mistral config """
-""" Viola model configuration"""
+# This model config is from Mistral config
+"""Bamboo model configuration"""
 
 from transformers.configuration_utils import PretrainedConfig
 from transformers.utils import logging
 
 
-
 logger = logging.get_logger(__name__)
-
-# BAMBOO_PRETRAINED_CONFIG_ARCHIVE_MAP = {
-#     "PowerInfer/Bamboo-base-v0_1": "https://huggingface.co/PowerInfer/Bamboo-base-v0_1/blob/main/config.json",
-# }
 
 
 class BambooConfig(PretrainedConfig):

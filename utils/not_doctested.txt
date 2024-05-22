@@ -51,7 +51,7 @@ docs/source/en/model_doc/altclip.md
 docs/source/en/model_doc/audio-spectrogram-transformer.md
 docs/source/en/model_doc/auto.md
 docs/source/en/model_doc/autoformer.md
-docs/source/en/model_doc/bamboo.md //todo
+docs/source/en/model_doc/bamboo.md
 docs/source/en/model_doc/bark.md
 docs/source/en/model_doc/bart.md
 docs/source/en/model_doc/barthez.md

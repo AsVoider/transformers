@@ -18,15 +18,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-""" PyTorch Bamboo model."""
-import torch
+"""PyTorch Bamboo model."""
+
 import inspect
 import math
 import warnings
-from typing import List, Optional, Tuple, Union
 from dataclasses import dataclass
 from typing import List, Optional, Tuple, Union
-
 
 import torch
 import torch.nn.functional as F
@@ -35,11 +33,14 @@ from torch import nn
 from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 
 from transformers.activations import ACT2FN
-
 from transformers.cache_utils import Cache, DynamicCache
-from transformers.activations import ACT2FN
+
 # from .modeling_attn_mask_utils import AttentionMaskConverter, _prepare_4d_causal_attention_mask, _prepare_4d_causal_attention_mask_for_sdpa
-from transformers.modeling_outputs import BaseModelOutputWithPast, CausalLMOutputWithPast, SequenceClassifierOutputWithPast
+from transformers.modeling_outputs import (
+    BaseModelOutputWithPast,
+    CausalLMOutputWithPast,
+    SequenceClassifierOutputWithPast,
+)
 from transformers.modeling_utils import PreTrainedModel
 from transformers.utils import (
     add_start_docstrings,
@@ -49,7 +50,10 @@ from transformers.utils import (
     logging,
     replace_return_docstrings,
 )
+
 from .configuration_bamboo import BambooConfig
+
+
 @dataclass
 class AttentionMaskConverter:
     """

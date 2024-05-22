@@ -181,9 +181,7 @@ _import_structure = {
         "AutoTokenizer",
     ],
     "models.autoformer": ["AutoformerConfig"],
-    "models.bamboo": [
-        "BambooConfig",
-    ],
+    "models.bamboo": ["BambooConfig"],
     "models.bark": [
         "BarkCoarseConfig",
         "BarkConfig",
@@ -1385,10 +1383,10 @@ else:
     )
     _import_structure["models.bamboo"].extend(
         [
-            "BambooPreTrainedModel",
-            "BambooModel",
             "BambooForCausalLM",
             "BambooForSequenceClassification",
+            "BambooModel",
+            "BambooPreTrainedModel",
         ]
     )
     _import_structure["models.bark"].extend(
@@ -4738,9 +4736,7 @@ if TYPE_CHECKING:
     from .models.autoformer import (
         AutoformerConfig,
     )
-    from .models.bamboo import (
-        BambooConfig
-    )
+    from .models.bamboo import BambooConfig
     from .models.bark import (
         BarkCoarseConfig,
         BarkConfig,

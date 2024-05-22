@@ -27,9 +27,7 @@ from ...utils import (
 )
 
 
-_import_structure = {
-    "configuration_bamboo": ["BambooConfig"]
-}
+_import_structure = {"configuration_bamboo": ["BambooConfig"]}
 
 
 try:
@@ -56,10 +54,10 @@ if TYPE_CHECKING:
         pass
     else:
         from .modeling_bamboo import (
-            BambooPreTrainedModel,
-            BambooModel,
             BambooForCausalLM,
             BambooForSequenceClassification,
+            BambooModel,
+            BambooPreTrainedModel,
         )
 
 
