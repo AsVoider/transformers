@@ -1,13 +1,23 @@
----
-license: apache-2.0
-language:
-- en
-datasets:
-- tiiuae/falcon-refinedweb
-- bigcode/starcoderdata
-- open-web-math/open-web-math
----
-## Introducation
+<!--Copyright 2023 Mistral AI and the HuggingFace Inc. team. All rights reserved.
+Copyright 2024 SJTU-IPADS AI and the HuggingFace Inc. team. All rights reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+
+⚠️ Note that this file is in Markdown but contain specific syntax for our doc-builder (similar to MDX) that may not be
+rendered properly in your Markdown viewer.
+
+-->
+
+# Bamboo
+
+## Overview
 
 Sparse computing is increasingly recognized as an important direction to improve the computational efficiency (e.g., inference speed) of large language models (LLM).
 
@@ -90,20 +100,52 @@ Here we show the inference speed compared with llama.cpp/transformers.
 
 - Bamboo, having undergone training with only 200B tokens, may still exhibit performance gaps in certain tasks. 
 - The Bamboo model has only been trained on English-language datasets, hence its capabilities in other languages are still lacking.
-- The model may produce unexpected outputs due to its size and probabilistic generation paradigm.
+- The model may produce unexpected outputs due to its size and probabilistic generation paradigm. 
 
-## License
+## Usage tips
+`Bamboo-base-v0_1` can be found on the [Huggingface Hub]("https://huggingface.co/PowerInfer")
 
-The code is licensed under Apache-2.0, while model weights are fully open for academic research and also allow **free** commercial usage. 
+In the following, we demonstrate how to use Bamboo-base-v0_1 for the inference. Note that we have used the ChatML format for dialog, in this demo we show how to leverage apply_chat_template for this purpose.
 
-## Citation
+```python
+>>> from transformers import AutoModelForCausalLM, AutoTokenizer
 
-Please kindly cite using the following BibTeX:
+>>> device = "cuda"  # the device to load the model onto
 
+>>> model = AutoModelForCausalLM.from_pretrained("PowerInfer/Bamboo-base-v0_1", torch_dtype="auto", device_map="auto")
+
+>>> tokenizer = AutoTokenizer.from_pretrained("PowerInfer/Bamboo-base-v0_1")
+
+>>> prompt = "Give me a short introduction to large language model."
+
+>>> messages = [{"role": "user", "content": prompt}]
+
+>>> text = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+
+>>> model_inputs = tokenizer([text], return_tensors="pt").to(device)
+
+>>> generated_ids = model.generate(model_inputs.input_ids, max_new_tokens=512, do_sample=False)
+
+>>> generated_ids = [output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)]
+
+>>> response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 ```
-@misc{bamboo,
-    title={Bamboo: Harmonizing Sparsity and Performance in Large Language Models}, 
-    author={Yixin Song, Haotong Xie, Zeyu Mi, Li Ma, Haibo Chen},
-    year={2024}
-}
-```
+
+## BambooConfig
+
+[[autodoc]] BambooConfig
+
+## BambooModel
+
+[[autodoc]] BambooModel
+    - forward
+
+## BambooForCausalLM
+
+[[autodoc]] BambooForCausalLM
+    - forward
+
+## BambooForSequenceClassification
+
+[[autodoc]] BambooForSequenceClassification
+    - forward
